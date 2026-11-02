@@ -80,3 +80,48 @@
 > - Unregister `sudo subscription-manager unregister`<br>
 > - Check available repositories `sudo subscription-manager repos --list`<br>
 > - Enable a repository `sudo subscription-manager repos --enable=<repository_id>` <br>
+
+### Red Hat Insights
+- Red Hat insights is a service that help organizations analyze their RHEL systems, identify potential security and configuration risks and plan maintenance activities.
+
+## 6. SELinux One of the Most Important RHEL topics
+- SELinux stands for **security enhanced Linux**.
+- It is a security mechanism that provides MAC (mandatory access control)
+- Suppose you have a file `-rw-r--r-- 1 root root 1024 app.conf`. Traditional Linux permissions determine who can access this file.
+- They consider
+      - User Ownership
+      - Group Ownership
+      - Read Permissions
+      - Write Permissions
+      - Execute Permissions
+- What happens if an application becomes compromised.
+- An application might be running under a user that has access to resources that shouldn't normally access.
+- SELinux provides an **additional security layer**. It controls what processes can access even when traditional Linux permissions would otherwise allow the operation.
+>[!Important]
+> - **Traditional Linux Permissions = Discretionary Access Control (DAC)**<br>
+> - **SELinux = Mandatory Access Control (MAC)**<br>
+> - SELinux adds another layer of security beyond traditional file permissions.<br>
+
+### SELinux Modes
+- Enforcing - Policies are actively enforced
+- Permissive - Policies are not enforced
+- Disabled - SELinux is disabled
+        - Check the current mode : `getenforce` Example: `Enforcing`
+        - To change to permissive : `sudo setenforce 0`
+        - Change to enforcing: `sudo setenforce 1`
+NB: Note that these runtime changes don't persist after reboot.
+- To configure the persistent mode, you generally modify: `/etc/selinux/config` Example `SELINUX=enforcing`
+#### Important SELinux Commands
+- Check SELinux status: `sestatus`
+- Check file security contexts: `ls -Z`
+- Check process security contexts: `ps -eZ`
+- Restore default file contexts : `sudo restorecon -Rv /var/www/html`
+- Change file context temporarily : `sudo chcon -t httpd_sys_content_t /var/www/html/index.html`
+- View SELinux related audit messages : `sudo ausearch -m AVC -ts recent`    
+#### A practical DevOps scenario
+- Imagine you deploye Nginx application. You configure `/opt/myapp/index.html` you give the Nginx process read permissions, you restart Nginx. However the application returns a permission-denied error.
+- You check `ls -l /opt/myapp` everything looks correct. What could be wrong?
+- SELinux! The directory might have an incorrect security context. You can investigate using `ls -Z /opt/myapp`. Then inspect SELinux denial logs.
+>[!Caution]
+> A common mistake is immediately disabling SELinux when application encounters permission errors.
+>
