@@ -56,9 +56,9 @@
 ## YUM vs DNF
 - RHEL used YUM _(yellowdog updater modified)_
 >[!Note]
-> RHEL 7 : YUM
-> RHEL 8,9,10 : DNF
-> You might still see YUM commands in modern RHEL environment because YUM is retained as a compatibility interface to DNF.
+> - RHEL 7 : YUM <br>
+> - RHEL 8,9,10 : DNF<br>
+> - You might still see YUM commands in modern RHEL environment because YUM is retained as a compatibility interface to DNF.
 
 ## What are repositories?
 - A repository is where software packages are stored.
@@ -74,9 +74,9 @@
         - Enterprise technical support
         - Lifecycle support
 >[!Tip]
-> RHEL provides a utility called a `subscription manager`
-> Check subscription status `sudo subscription-manager status`
-> Register a system `sudo subscription-manager register`
-> Unregister `sudo subscription-manager unregister`
-> Check available repositories `sudo subscription-manager repos --list`
-> Enable a repository `sudo subscription-manager repos --enable=<repository_id>` 
+> - RHEL provides a utility called a `subscription manager`<br>
+> - Check subscription status `sudo subscription-manager status`<br>
+> - Register a system `sudo subscription-manager register`<br>
+> - Unregister `sudo subscription-manager unregister`<br>
+> - Check available repositories `sudo subscription-manager repos --list`<br>
+> - Enable a repository `sudo subscription-manager repos --enable=<repository_id>` <br>
