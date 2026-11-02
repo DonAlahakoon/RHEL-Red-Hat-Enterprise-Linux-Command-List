@@ -168,4 +168,27 @@ NB: Remember opening an AWS security group port doesn't automatically open the s
 - Disable at startup : `sudo systemctl disable nginx`
 - Enable and start simultaneously : `sudo systemctl enable --now nginx`
 - List running services : `systemctl list-units --type=service --state=running`
-- 
+
+##### Systemd service file location : 
+`/etc/systemd/system/` <br>
+`/usr/lib/systemd/system/`<br>
+Example: 
+```
+[Unit]
+Description=My Spring Boot Application
+After=network.target
+
+[Service]
+User=appuser
+WorkingDirectory=/opt/myapp
+ExecStart=/usr/bin/java -jar /opt/myapp/app.jar
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+- After creating the file
+`sudo systemctl daemon-reload`<br>
+`sudo systemctl enable --now myapp`
+
+## Networking in RHEL
