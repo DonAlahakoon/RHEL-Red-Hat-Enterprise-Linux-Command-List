@@ -29,3 +29,37 @@
 - `rpm -ivh package.rpm` Install an RPM package
 - `rpm -Uvh package.rpm` Update or install a package
 
+>[!Important]
+> RPM itself doesn't automatically resolve all package dependencies in the way DNF does.
+> You might have to resolve package dependencies manually when using low level RPM commands.
+> That is where DNF comes in.
+
+## RHEL Package Manager
+- High level package manager used in modern RHEL versions.
+- It handles
+      - Package installations
+      - Package removal
+      - Dependency resolution
+      - Repository management
+      - Package updates
+## Important Commands
+- `sudo dnf install nginx` Install software
+- `sudo dnf remove nginx` Removes software
+- `sudo dnf update` Updates installed packages
+- `sudo dnf search nginx` Search for a package
+- `sudo dnf info nginx` Get package information
+- `sudo dnf list installed` List installed packages
+- `sudo dnf repolist` List available repositories
+- `sudo dnf clean all` Clear cached metadata
+- `sudo dnf repoquery --requires nginx` Show package dependencies
+
+## YUM vs DNF
+- RHEL used YUM(yellowdog updater modified)
+>[!Note]
+> RHEL 7 : YUM
+> RHEL 8,9,10 : DNF
+> You might still see YUM commands in modern RHEL environment because YUM is retained as a compatibility interface to DNF.
+
+## What are repositories?
+- A repository is where software packages are stored.
+- In RHEL two important repository concepts are **BaseOS** and **AppStream**
