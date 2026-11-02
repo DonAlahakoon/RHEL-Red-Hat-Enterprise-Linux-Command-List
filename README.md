@@ -54,7 +54,7 @@
 - `sudo dnf repoquery --requires nginx` Show package dependencies
 
 ## YUM vs DNF
-- RHEL used YUM(yellowdog updater modified)
+- RHEL used YUM _(yellowdog updater modified)_
 >[!Note]
 > RHEL 7 : YUM
 > RHEL 8,9,10 : DNF
@@ -63,3 +63,20 @@
 ## What are repositories?
 - A repository is where software packages are stored.
 - In RHEL two important repository concepts are **BaseOS** and **AppStream**
+
+## 5. RHEL Subscription Management
+- This is where RHEL different from other Linux distros
+- **If Linux is open source why need to pay for RHEL?** _The answer to that is you pay not for the linux kernel but for the enterprise ecosystem sorrounding the distribution._
+- Depending on the subscription it includes Enterprise Technical Support
+        - Access to supported software repositories
+        - Security Updates
+        - Bug fixes
+        - Enterprise technical support
+        - Lifecycle support
+>[!Tip]
+> RHEL provides a utility called a `subscription manager`
+> Check subscription status `sudo subscription-manager status`
+> Register a system `sudo subscription-manager register`
+> Unregister `sudo subscription-manager unregister`
+> Check available repositories `sudo subscription-manager repos --list`
+> Enable a repository `sudo subscription-manager repos --enable=<repository_id>` 
