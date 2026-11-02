@@ -124,4 +124,48 @@ NB: Note that these runtime changes don't persist after reboot.
 - SELinux! The directory might have an incorrect security context. You can investigate using `ls -Z /opt/myapp`. Then inspect SELinux denial logs.
 >[!Caution]
 > A common mistake is immediately disabling SELinux when application encounters permission errors.
->
+
+## 7. Firewalld - Firewall management in RHEL
+- `Firewalld` provides dynamic firewall management.
+- Allow administrators to configure firewall rules without manually managing every underlying firewall rule.
+#### Commands
+- Check firewall status `sudo systemctl system firewalld`
+- Start firewall `sudo systemctl start firewalld`
+- Enable firewall at boot `sudo systemctl enable firewalld`
+- Check active zones `sudo firewall-cmd --get-active-zones`
+- List allowed services `sudo firewall-cmd --list-services`
+- List allowed ports `sudo firewall --list-ports`
+- Allow http traffic `sudo firewall-cmd --permanent --add-service=http`
+- Allow https `sudo firewall-cmd --permanent --add-service=https`
+- Allow a specific port `sudo firewall-cmd --permanent --add-port=8080/tcp`
+- Reload firewall `sudo firewall-cmd --reload`
+- Remove port `sudo firewall-cmd --permanent --remove-port=8080/tcp`
+#### Practical Scenario
+- Suppose you deploy a Spring Boot application on port 8080. The application is running. `sudo systemctl status myapp` But you can't access it remotely. What do you investigate?
+        1. Is the application listening on port 8080.
+        2. Is the Linux firewall allowing port 8080.
+        3. Is the cloud security group allowing port 8080.
+        4. Is the network route correct?
+        5. Is the application binding to the correct interface?
+NB: Remember opening an AWS security group port doesn't automatically open the same port in the operating system firewall.
+
+## 8. Systemd and service management
+- RHEL uses systemd as its service and system initializing manager.
+- It manages system services and other units.
+- For example
+    - Ngnix
+    - SSH
+    - Docker
+    - Podman-related services
+    - Database services
+#### Commands
+- Check service status: `sudo systemctl status nginx`
+- Start a service : `sudo systemctl start nginx`
+- Stop a service : `sudo systemctl stop nginx`
+- Restart : `sudo systemctl restart nginx`
+- Reload configuration : `sudo systemctl reload nginx`
+- Enable at startup : `sudo systemctl enable nginx`
+- Disable at startup : `sudo systemctl disable nginx`
+- Enable and start simultaneously : `sudo systemctl enable --now nginx`
+- List running services : `systemctl list-units --type=service --state=running`
+- 
